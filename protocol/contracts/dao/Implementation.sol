@@ -24,7 +24,9 @@ import "./Bonding.sol";
 import "./Govern.sol";
 import "../Constants.sol";
 
-contract Implementation is State, Bonding, Market, Regulator, Govern {
+/* We should remove the Governance so we can change the codes later with our requirements */
+
+contract Implementation is State, Bonding, Market, Regulator/*, Govern*/ {
     using SafeMath for uint256;
 
     event Advance(uint256 indexed epoch, uint256 block, uint256 timestamp);

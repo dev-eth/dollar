@@ -50,13 +50,16 @@ library Constants {
     uint256 private constant CURRENT_EPOCH_START = 1602201600;
     uint256 private constant CURRENT_EPOCH_PERIOD = 28800;
 
-    /* Governance */
+    /* Governance */ /* We should remove the Governance so we can change the codes later with our requirements */
+    
+    /*
     uint256 private constant GOVERNANCE_PERIOD = 9; // 9 epochs
     uint256 private constant GOVERNANCE_EXPIRATION = 2; // 2 + 1 epochs
     uint256 private constant GOVERNANCE_QUORUM = 20e16; // 20%
     uint256 private constant GOVERNANCE_PROPOSAL_THRESHOLD = 5e15; // 0.5%
     uint256 private constant GOVERNANCE_SUPER_MAJORITY = 66e16; // 66%
     uint256 private constant GOVERNANCE_EMERGENCY_DELAY = 6; // 6 epochs
+    */
 
     /* DAO */
     uint256 private constant ADVANCE_INCENTIVE = 1e20; // 100 ESD
@@ -66,7 +69,7 @@ library Constants {
     uint256 private constant POOL_EXIT_LOCKUP_EPOCHS = 5; // 5 epochs fluid
 
     /* Market */
-    uint256 private constant COUPON_EXPIRATION = 90;
+    uint256 private constant COUPON_EXPIRATION = 441; // It was 30 days, change it to 30 years
     uint256 private constant DEBT_RATIO_CAP = 20e16; // 20%
 
     /* Regulator */
@@ -125,6 +128,9 @@ library Constants {
         return BOOTSTRAPPING_SPEEDUP_FACTOR;
     }
 
+    /* We should remove the Governance so we can change the codes later */
+
+    /*
     function getGovernancePeriod() internal pure returns (uint256) {
         return GOVERNANCE_PERIOD;
     }
@@ -148,6 +154,7 @@ library Constants {
     function getGovernanceEmergencyDelay() internal pure returns (uint256) {
         return GOVERNANCE_EMERGENCY_DELAY;
     }
+    */
 
     function getAdvanceIncentive() internal pure returns (uint256) {
         return ADVANCE_INCENTIVE;

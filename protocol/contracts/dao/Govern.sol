@@ -25,6 +25,9 @@ import "../external/Require.sol";
 import "../external/Decimal.sol";
 import "../Constants.sol";
 
+/* We should remove the Governance so we can change the codes later with our requirements */
+
+/*
 contract Govern is Setters, Permission, Upgradeable {
     using SafeMath for uint256;
     using Decimal for Decimal.D256;
@@ -161,3 +164,4 @@ contract Govern is Setters, Permission, Upgradeable {
         return stake.greaterThan(Constants.getGovernanceProposalThreshold());
     }
 }
+*/

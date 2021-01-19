@@ -21,7 +21,9 @@ import "../dao/Govern.sol";
 import "./MockUpgradeable.sol";
 import "./MockComptroller.sol";
 
-contract MockGovern is Govern, MockComptroller {
+/* We should remove the Governance so we can change our codes later with our requirements */
+
+contract MockGovern is /*Govern,*/ MockComptroller {
     uint256 internal _epochTime;
 
     constructor() MockComptroller(address(0)) public { }
@@ -30,9 +32,13 @@ contract MockGovern is Govern, MockComptroller {
         revert("Should not call");
     }
 
+    /* We should remove the Governance so we can change the codes later with our requirements */
+
+    /*
     function upgradeToE(address newImplementation) external {
         super.upgradeTo(newImplementation);
     }
+    */
 
     function setEpochTime(uint256 epochTime) external {
         _epochTime = epochTime;
