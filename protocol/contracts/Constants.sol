@@ -51,7 +51,6 @@ library Constants {
     uint256 private constant CURRENT_EPOCH_PERIOD = 28800;
 
     /* Governance */ /* We should remove the Governance so we can change the codes later with our requirements */
-    
     /*
     uint256 private constant GOVERNANCE_PERIOD = 9; // 9 epochs
     uint256 private constant GOVERNANCE_EXPIRATION = 2; // 2 + 1 epochs
