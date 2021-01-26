@@ -65,11 +65,12 @@ contract Market is Comptroller, Curve {
         return calculateCouponPremium(dollar().totalSupply(), totalDebt(), amount);
     }
 
+    // Remove Coupon System
     function purchaseCoupons(uint256 dollarAmount) external returns (uint256) {
         Require.that(
-            dollarAmount > 0,
+            dollarAmount = 0,
             FILE,
-            "Must purchase non-zero amount"
+            "Coupon System is deactivated"
         );
 
         Require.that(
