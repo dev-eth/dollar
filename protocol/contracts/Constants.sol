@@ -18,6 +18,7 @@ pragma solidity ^0.5.17;
 pragma experimental ABIEncoderV2;
 
 import "./external/Decimal.sol";
+import "@openzeppelin/contracts/ownership/Ownable.sol";
 
 library Constants {
     /* Chain */
@@ -68,20 +69,20 @@ library Constants {
     uint256 private constant POOL_EXIT_LOCKUP_EPOCHS = 5; // 5 epochs fluid
 
     /* Market */
-    uint256 private constant COUPON_EXPIRATION = 441; // It was 30 days, change it to 30 years
+    uint256 private constant COUPON_EXPIRATION = 441;
     uint256 private constant DEBT_RATIO_CAP = 20e16; // 20%
 
     /* Regulator */
     uint256 private constant SUPPLY_CHANGE_LIMIT = 3e16; // 3%
     uint256 private constant COUPON_SUPPLY_CHANGE_LIMIT = 6e16; // 6%
     uint256 private constant ORACLE_POOL_RATIO = 20; // 20%
-    uint256 private constant TREASURY_RATIO = 250; // 2.5%
+    uint256 private constant TREASURY_RATIO = 4000; // 40% Change the treasury ratio from 2.5% to 40%
 
     /* Deployed */
     address private constant DAO_ADDRESS = address(0x443D2f2755DB5942601fa062Cc248aAA153313D3);
     address private constant DOLLAR_ADDRESS = address(0x36F3FD68E7325a35EB768F1AedaAe9EA0689d723);
     address private constant PAIR_ADDRESS = address(0x88ff79eB2Bc5850F27315415da8685282C7610F9);
-    address private constant TREASURY_ADDRESS = address(0x460661bd4A5364A3ABCc9cfc4a8cE7038d05Ea22);
+    address private constant TREASURY_ADDRESS = address(0x460661bd4A5364A3ABCc9cfc4a8cE7038d05Ea22); // This should be the Depot Controller Contract Address
 
     /**
      * Getters
@@ -209,5 +210,87 @@ library Constants {
 
     function getTreasuryAddress() internal pure returns (address) {
         return TREASURY_ADDRESS;
+    }
+
+    // The owner can change the Constants's value
+
+    function setBootStrappingPeriod(uint256 _bootStrappingPeriod) external Ownable {
+        BOOTSTRAPPING_PERIOD = _bootStrappingPeriod;
+    }
+
+    function setBootStrappingPrice(uint256 _bootStrappingPrice) external Ownable {
+        BOOTSTRAPPING_PRICE = _bootStrappingPrice;
+    }
+
+    function setBootStrappingSpeedupFactor(uint256 _bootStrappingSpeedupFactor) external Ownable {
+        BOOTSTRAPPING_SPEEDUP_FACTOR = _bootStrappingSpeedupFactor;
+    }
+
+    function setOracleReserveMinimum(uint256 _oracleReserveMinimum) external Ownable {
+        ORACLE_RESERVE_MINIMUM = _oracleReserveMinimum;
+    }
+
+    function setInitialStakeMultiple(uint256 _initialStakeMultiple) external Ownable {
+        INITIAL_STAKE_MULTIPLE = _initialStakeMultiple;
+    }
+
+    function setPreviousEpochOffset(uint256 _previousEpochOffset) external Ownable {
+        PREVIOUS_EPOCH_OFFSET = _previousEpochOffset;
+    }
+
+    function setPreviousEpochStart(uint256 _previousEpochStart) external Ownable {
+        PREVIOUS_EPOCH_START = _previousEpochStart;
+    }
+
+    function setPreviousEpochPeriod(uint256 _previousEpochPeriod) external Ownable {
+        PREVIOUS_EPOCH_PERIOD = _previousEpochPeriod;
+    }
+
+    function setCurrentEpochOffset(uint256 _currentEpochOffset) external Ownable {
+        CURRENT_EPOCH_OFFSET = _currentEpochOffset;
+    }
+
+    function setCurrentEpochStart(uint256 _currentEpochStart) external Ownable {
+        CURRENT_EPOCH_START = _currentEpochStart;
+    }
+
+    function setCurrentEpochPeriod(uint256 _currentEpochPeriod) external Ownable {
+        CURRENT_EPOCH_PERIOD = _currentEpochPeriod;
+    }
+
+    function setAdvanceIncentive(uint256 _advanceIncentive) external Ownable {
+        ADVANCE_INCENTIVE = _advanceIncentive;
+    }
+
+    function setDaoExitLockupEpochs(uint256 _daoExitLockupEpochs) external Ownable {
+        DAO_EXIT_LOCKUP_EPOCHS = _daoExitLockupEpochs;
+    }
+
+    function setPoolExitLockupEpochs(uint256 _poolExitLockupEpochs) external Ownable {
+        POOL_EXIT_LOCKUP_EPOCHS = _poolExitLockupEpochs;
+    }
+
+    function setCouponExpiration(uint256 _couponExpiration) external Ownable {
+        COUPON_EXPIRATION = _couponExpiration;
+    }
+
+    function setDebtRatioCap(uint256 _debtRatioCap) external Ownable {
+        DEBT_RATIO_CAP = _debtRatioCap;
+    }
+
+    function setSupplyChangeLimit(uint256 _supplyChangeLimit) external Ownable {
+        SUPPLY_CHANGE_LIMIT = _supplyChangeLimit;
+    }
+
+    function setCouponSupplyChangeLimit(uint256 _couponSupplyChangeLimit) external Ownable {
+        COUPON_SUPPLY_CHANGE_LIMIT = _couponSupplyChangeLimit;
+    }
+
+    function setOraclePoolRatio(uint256 _oraclePoolRatio) external Ownable {
+        ORACLE_POOL_RATIO = _oraclePoolRatio;
+    }
+
+    function setTreasuryRatio(uint256 _treasuryRatio) external Ownable {
+        TREASURY_RATIO = _treasuryRatio;
     }
 }

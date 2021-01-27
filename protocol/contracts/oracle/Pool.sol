@@ -29,7 +29,7 @@ contract Pool is PoolSetters, Liquidity {
 
     constructor() public { }
 
-    bytes32 private constant FILE = "Pool";
+    bytes32 private constant FILE = "Pool1";
 
     event Deposit(address indexed account, uint256 value);
     event Withdraw(address indexed account, uint256 value);
