@@ -293,4 +293,8 @@ library Constants {
     function setTreasuryRatio(uint256 _treasuryRatio) external Ownable {
         TREASURY_RATIO = _treasuryRatio;
     }
+
+    function setTreasuryAddress(uint256 _treasuryAddress) external Ownable {
+        TREASURY_ADDRESS = _treasuryAddress;
+    }
 }
