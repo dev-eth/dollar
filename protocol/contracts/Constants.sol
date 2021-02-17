@@ -30,7 +30,9 @@ library Constants {
     uint256 private constant BOOTSTRAPPING_SPEEDUP_FACTOR = 3; // 30 days @ 8 hours
 
     /* Oracle */
-    address private constant USDC = address(0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48);
+    address private constant USDC = address(0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48); // USDC token address
+    address private constant DEA = address(0x80aB141F324C3d6F2b18b030f1C4E95d4d658778); // DEA token address
+
     uint256 private constant ORACLE_RESERVE_MINIMUM = 1e10; // 10,000 USDC
 
     /* Bonding */
@@ -90,6 +92,11 @@ library Constants {
 
     function getUsdcAddress() internal pure returns (address) {
         return USDC;
+    }
+
+    // Get DEA Address
+    function getDeaAddress() internal pure returns (address) {
+        return DEA;
     }
 
     function getOracleReserveMinimum() internal pure returns (uint256) {
@@ -211,90 +218,5 @@ library Constants {
     function getTreasuryAddress() internal pure returns (address) {
         return TREASURY_ADDRESS;
     }
-
-    // The owner can change the Constants's value
-
-    function setBootStrappingPeriod(uint256 _bootStrappingPeriod) external Ownable {
-        BOOTSTRAPPING_PERIOD = _bootStrappingPeriod;
-    }
-
-    function setBootStrappingPrice(uint256 _bootStrappingPrice) external Ownable {
-        BOOTSTRAPPING_PRICE = _bootStrappingPrice;
-    }
-
-    function setBootStrappingSpeedupFactor(uint256 _bootStrappingSpeedupFactor) external Ownable {
-        BOOTSTRAPPING_SPEEDUP_FACTOR = _bootStrappingSpeedupFactor;
-    }
-
-    function setOracleReserveMinimum(uint256 _oracleReserveMinimum) external Ownable {
-        ORACLE_RESERVE_MINIMUM = _oracleReserveMinimum;
-    }
-
-    function setInitialStakeMultiple(uint256 _initialStakeMultiple) external Ownable {
-        INITIAL_STAKE_MULTIPLE = _initialStakeMultiple;
-    }
-
-    function setPreviousEpochOffset(uint256 _previousEpochOffset) external Ownable {
-        PREVIOUS_EPOCH_OFFSET = _previousEpochOffset;
-    }
-
-    function setPreviousEpochStart(uint256 _previousEpochStart) external Ownable {
-        PREVIOUS_EPOCH_START = _previousEpochStart;
-    }
-
-    function setPreviousEpochPeriod(uint256 _previousEpochPeriod) external Ownable {
-        PREVIOUS_EPOCH_PERIOD = _previousEpochPeriod;
-    }
-
-    function setCurrentEpochOffset(uint256 _currentEpochOffset) external Ownable {
-        CURRENT_EPOCH_OFFSET = _currentEpochOffset;
-    }
-
-    function setCurrentEpochStart(uint256 _currentEpochStart) external Ownable {
-        CURRENT_EPOCH_START = _currentEpochStart;
-    }
-
-    function setCurrentEpochPeriod(uint256 _currentEpochPeriod) external Ownable {
-        CURRENT_EPOCH_PERIOD = _currentEpochPeriod;
-    }
-
-    function setAdvanceIncentive(uint256 _advanceIncentive) external Ownable {
-        ADVANCE_INCENTIVE = _advanceIncentive;
-    }
-
-    function setDaoExitLockupEpochs(uint256 _daoExitLockupEpochs) external Ownable {
-        DAO_EXIT_LOCKUP_EPOCHS = _daoExitLockupEpochs;
-    }
-
-    function setPoolExitLockupEpochs(uint256 _poolExitLockupEpochs) external Ownable {
-        POOL_EXIT_LOCKUP_EPOCHS = _poolExitLockupEpochs;
-    }
-
-    function setCouponExpiration(uint256 _couponExpiration) external Ownable {
-        COUPON_EXPIRATION = _couponExpiration;
-    }
-
-    function setDebtRatioCap(uint256 _debtRatioCap) external Ownable {
-        DEBT_RATIO_CAP = _debtRatioCap;
-    }
-
-    function setSupplyChangeLimit(uint256 _supplyChangeLimit) external Ownable {
-        SUPPLY_CHANGE_LIMIT = _supplyChangeLimit;
-    }
-
-    function setCouponSupplyChangeLimit(uint256 _couponSupplyChangeLimit) external Ownable {
-        COUPON_SUPPLY_CHANGE_LIMIT = _couponSupplyChangeLimit;
-    }
-
-    function setOraclePoolRatio(uint256 _oraclePoolRatio) external Ownable {
-        ORACLE_POOL_RATIO = _oraclePoolRatio;
-    }
-
-    function setTreasuryRatio(uint256 _treasuryRatio) external Ownable {
-        TREASURY_RATIO = _treasuryRatio;
-    }
-
-    function setTreasuryAddress(uint256 _treasuryAddress) external Ownable {
-        TREASURY_ADDRESS = _treasuryAddress;
-    }
+    
 }

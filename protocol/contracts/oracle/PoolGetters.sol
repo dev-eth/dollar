@@ -32,6 +32,11 @@ contract PoolGetters is PoolState {
         return Constants.getUsdcAddress();
     }
 
+    // Get Dea address
+    function dea() public view returns (address) {
+        return Constants.getDeaAddress();
+    }
+
     function dao() public view returns (IDAO) {
         return IDAO(Constants.getDaoAddress());
     }

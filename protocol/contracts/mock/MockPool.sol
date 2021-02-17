@@ -17,15 +17,15 @@
 pragma solidity ^0.5.17;
 pragma experimental ABIEncoderV2;
 
-import "../oracle/Pool.sol";
+import "../oracle/Pool1.sol";
 
-contract MockPool is Pool {
+contract MockPool is Pool1 {
     address private _usdc;
     address private _dao;
     address private _dollar;
     address private _univ2;
 
-    constructor(address usdc) Pool() public {
+    constructor(address usdc) Pool1() public {
         _usdc = usdc;
     }
 

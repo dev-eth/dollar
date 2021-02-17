@@ -68,7 +68,7 @@ contract Market is Comptroller, Curve {
     // Remove Coupon System
     function purchaseCoupons(uint256 dollarAmount) external returns (uint256) {
         Require.that(
-            dollarAmount = 0,
+            dollarAmount == 0,
             FILE,
             "Coupon System is deactivated"
         );
