@@ -26,45 +26,17 @@ import "./PoolGetters.sol";
 contract Liquidity is PoolGetters {
     address private constant UNISWAP_FACTORY = address(0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f);
 
-    function addLiquidity(uint256 dollarAmount, uint256 _poolId) internal returns (uint256, uint256) {
-        address dollar;
-        address usdc;
-        address dea;
-        address pair;
+    function addLiquidity(uint256 dollarAmount) internal returns (uint256, uint256) {
+        (address dollar, address usdc) = (address(dollar()), usdc());
+        (uint reserveA, uint reserveB) = getReserves(dollar, usdc);
 
-        uint reserveA;
-        uint reserveB;
+        uint256 usdcAmount = (reserveA == 0 && reserveB == 0) ?
+             dollarAmount :
+             UniswapV2Library.quote(dollarAmount, reserveA, reserveB);
 
-        uint256 usdcAmount;
-
-        if (_poolId == 1) // DEOX/USDC
-        {
-            (dollar, usdc) = (address(dollar()), usdc());
-            (reserveA, reserveB) = getReserves(dollar, usdc);
-
-            usdcAmount = (reserveA == 0 && reserveB == 0) ?
-                dollarAmount :
-                UniswapV2Library.quote(dollarAmount, reserveA, reserveB);
-
-            pair = address(univ2());
-            IERC20(dollar).transfer(pair, dollarAmount);
-            IERC20(usdc).transferFrom(msg.sender, pair, usdcAmount);
-        }
-        
-        else if (_poolId == 2) // DEA/DEOX
-        {
-            (dollar, dea) = (address(dollar()), dea());
-            (reserveA, reserveB) = getReserves(dollar, dea);
-
-            usdcAmount = (reserveA == 0 && reserveB == 0) ?
-                dollarAmount :
-                UniswapV2Library.quote(dollarAmount, reserveA, reserveB);
-
-            pair = address(univ2());
-            IERC20(dollar).transfer(pair, dollarAmount);
-            IERC20(dea).transferFrom(msg.sender, pair, usdcAmount);
-        }
-
+        address pair = address(univ2());
+        IERC20(dollar).transfer(pair, dollarAmount);
+        IERC20(usdc).transferFrom(msg.sender, pair, usdcAmount);
         return (usdcAmount, IUniswapV2Pair(pair).mint(address(this)));
     }
 

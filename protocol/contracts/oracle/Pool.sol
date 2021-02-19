@@ -25,7 +25,7 @@ import "./PoolSetters.sol";
 import "./Liquidity.sol";
 import "./Oracle.sol";
 
-contract Pool1 is PoolSetters, Liquidity {
+contract Pool is PoolSetters, Liquidity {
     using SafeMath for uint256;
 
     uint256 private constant Lp1 = 1;
@@ -33,7 +33,7 @@ contract Pool1 is PoolSetters, Liquidity {
 
     constructor() public { }
 
-    bytes32 private constant FILE = "Pool1";
+    bytes32 private constant FILE = "Pool";
 
     event Deposit(address indexed account, uint256 value);
     event Withdraw(address indexed account, uint256 value);
@@ -53,7 +53,7 @@ contract Pool1 is PoolSetters, Liquidity {
 
     function withdraw(uint256 value, uint256 poolId) external onlyFrozen(msg.sender) {
         univ2().transfer(msg.sender, value);
-        decrementBalanceOfStaged(msg.sender, value, "Pool1: insufficient staged balance");
+        decrementBalanceOfStaged(msg.sender, value, "Pool: insufficient staged balance");
 
         balanceCheck();
 
@@ -62,7 +62,7 @@ contract Pool1 is PoolSetters, Liquidity {
 
     function claim(uint256 value, uint256 poolId) external onlyFrozen(msg.sender) {
         dollar().transfer(msg.sender, value);
-        decrementBalanceOfClaimable(msg.sender, value, "Pool1: insufficient claimable balance");
+        decrementBalanceOfClaimable(msg.sender, value, "Pool: insufficient claimable balance");
 
         balanceCheck();
 
@@ -79,7 +79,7 @@ contract Pool1 is PoolSetters, Liquidity {
 
         incrementBalanceOfBonded(msg.sender, value);
         incrementBalanceOfPhantom(msg.sender, newPhantom);
-        decrementBalanceOfStaged(msg.sender, value, "Pool1: insufficient staged balance");
+        decrementBalanceOfStaged(msg.sender, value, "Pool: insufficient staged balance");
 
         balanceCheck();
 
@@ -101,8 +101,8 @@ contract Pool1 is PoolSetters, Liquidity {
 
         incrementBalanceOfStaged(msg.sender, value);
         incrementBalanceOfClaimable(msg.sender, newClaimable);
-        decrementBalanceOfBonded(msg.sender, value, "Pool1: insufficient bonded balance");
-        decrementBalanceOfPhantom(msg.sender, lessPhantom, "Pool1: insufficient phantom balance");
+        decrementBalanceOfBonded(msg.sender, value, "Pool: insufficient bonded balance");
+        decrementBalanceOfPhantom(msg.sender, lessPhantom, "Pool: insufficient phantom balance");
 
         balanceCheck();
 
