@@ -3,6 +3,7 @@ pragma experimental ABIEncoderV2;
 
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/ownership/Ownable.sol";
+import "./oracle/Oracle.sol";
 
 interface StakedToken {
     function balanceOf(address account) external view returns (uint256);
@@ -13,10 +14,9 @@ interface StakedToken {
 interface RewardToken {
     function balanceOf(address account) external view returns (uint256);
     function transfer(address recipient, uint256 amount) external returns (bool);
-
 }
 
-contract Staking is Ownable {
+contract Staking is Ownable, Oracle {
 
     struct User {
         uint256 depositAmount;
@@ -100,40 +100,12 @@ contract Staking is Ownable {
         return user.depositAmount.mul(accRewardPerToken).div(scale).sub(user.paidReward);
     }
 
-    function add(
-            uint256 _rewardAllocation, 
-            IERC20 _pairAddress, 
-            IERC20 _otherToken
-            ) external onlyOwner {
-            require (_rewardAllocation <= 100, "Invalid allocation");
-            uint256 _totalAllocation = rewardAllocation.mul(_rewardAllocation).div(100);
-            for (uint256 pid = 0; pid < poolInfo.length; ++ pid) {
-                _totalAllocation = _totalAllocation.add(poolInfo[pid].rewardAllocation);
-            }
-            require (_totalAllocation <= rewardAllocation, "Allocation exceeded");
-
-            poolInfo.push(PoolInfo({
-                pairAddress: _pairAddress,
-                otherToken: _otherToken,
-                rewardAllocation: rewardAllocation.mul(_rewardAllocation).div(100),
-                borrowedSupply: 0,
-                totalSupply: 0
-            }));
-        }
-
-    function set(uint256 _poolId, uint256 _rewardAllocation) external onlyOwner {
-            require (_rewardAllocation <= 100, "Invalid allocation");
-            uint256 totalAllocation = rewardAllocation.sub(poolInfo[_poolId].rewardAllocation).add(
-                rewardAllocation.mul(_rewardAllocation).div(100)
-            );
-            require (totalAllocation <= rewardAllocation, "Allocation exceeded");
-            
-            if (poolInfo[_poolId].rewardAllocation != rewardAllocation.mul(_rewardAllocation).div(100)) {
-                poolInfo[_poolId].rewardAllocation = rewardAllocation.mul(_rewardAllocation).div(100);
-            }
-        }
-
     function deposit(uint256 amount) public {
+
+        // Users will only deposit when TWAP price is below 1 usd
+        (Decimal.D256 memory price, bool valid) = capture();
+        require(price.greaterThan(Decimal.one()), "Deposit is unavailable!");
+
         User storage user = users[msg.sender];
         update();
 
