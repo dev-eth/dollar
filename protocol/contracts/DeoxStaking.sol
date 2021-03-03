@@ -115,6 +115,7 @@ contract Staking is Ownable, Oracle {
 
         // We should store the total burnt deox amount
         user.totalBurntDeoxAmount += amount;
+
         // We should calculate the total deposit amount
         totalAmount += user.depositAmount;
 
@@ -174,7 +175,6 @@ contract Staking is Ownable, Oracle {
         user.depositAmount = 0;
         user.paidReward = 0;
     }
-
 
     // Add temporary withdrawal functionality for owner(DAO) to transfer all tokens to a safe place.
     // Contract ownership will transfer to address(0x) after full auditing of codes.
