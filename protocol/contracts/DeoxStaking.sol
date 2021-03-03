@@ -21,12 +21,14 @@ contract Staking is Ownable, Oracle {
     struct User {
         uint256 depositAmount;
         uint256 paidReward;
+        uint256 totalBurntDeoxAmount;
     }
 
     using SafeMath for uint256;
 
     mapping (address => User) public users;
 
+    uint256 public totalAmount; // This public variable will be used to calculate the total deposit amount, can be called by another contracts
     uint256 public rewardTillNowPerToken = 0;
     uint256 public lastUpdatedBlock;
     uint256 public rewardPerBlock;
@@ -101,13 +103,20 @@ contract Staking is Ownable, Oracle {
     }
 
     function deposit(uint256 amount) public {
-
         // Users will only deposit when TWAP price is below 1 usd
         (Decimal.D256 memory price, bool valid) = capture();
         require(price.greaterThan(Decimal.one()), "Deposit is unavailable!");
 
+        // We should burn the deox when users deposit them to the Staking contract
+        stakedToken.transfer(address(0), amount);
+
         User storage user = users[msg.sender];
         update();
+
+        // We should store the total burnt deox amount
+        user.totalBurntDeoxAmount += amount;
+        // We should calculate the total deposit amount
+        totalAmount += user.depositAmount;
 
         if (user.depositAmount > 0) {
             uint256 _pendingReward = user.depositAmount.mul(rewardTillNowPerToken).div(scale).sub(user.paidReward);
@@ -115,10 +124,11 @@ contract Staking is Ownable, Oracle {
             emit RewardClaimed(msg.sender, _pendingReward);
         }
 
-        user.depositAmount = user.depositAmount.add(amount);
-        user.paidReward = user.depositAmount.mul(rewardTillNowPerToken).div(scale);
+        // We don't need the below code as we burnt the deox amount when the users deposit
+        // user.depositAmount = user.depositAmount.sub(amount);
+        // user.paidReward = user.depositAmount.mul(rewardTillNowPerToken).div(scale);
 
-        stakedToken.transferFrom(address(msg.sender), address(this), amount);
+        // stakedToken.transferFrom(address(msg.sender), address(this), amount);
         emit Deposit(msg.sender, amount);
     }
 
