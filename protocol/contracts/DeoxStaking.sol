@@ -21,7 +21,7 @@ contract Staking is Ownable, Oracle {
     struct User {
         uint256 depositAmount;
         uint256 paidReward;
-        uint256 totalBurntDeoxAmount;
+        uint256 totalBurntDeoxAmount; // This variable will be used to store the total burnt deox
     }
 
     using SafeMath for uint256;

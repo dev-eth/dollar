@@ -53,16 +53,6 @@ library Constants {
     uint256 private constant CURRENT_EPOCH_START = 1602201600;
     uint256 private constant CURRENT_EPOCH_PERIOD = 28800;
 
-    /* Governance */ /* We should remove the Governance so we can change the codes later with our requirements */
-    /*
-    uint256 private constant GOVERNANCE_PERIOD = 9; // 9 epochs
-    uint256 private constant GOVERNANCE_EXPIRATION = 2; // 2 + 1 epochs
-    uint256 private constant GOVERNANCE_QUORUM = 20e16; // 20%
-    uint256 private constant GOVERNANCE_PROPOSAL_THRESHOLD = 5e15; // 0.5%
-    uint256 private constant GOVERNANCE_SUPER_MAJORITY = 66e16; // 66%
-    uint256 private constant GOVERNANCE_EMERGENCY_DELAY = 6; // 6 epochs
-    */
-
     /* DAO */
     uint256 private constant ADVANCE_INCENTIVE = 1e20; // 100 ESD
     uint256 private constant DAO_EXIT_LOCKUP_EPOCHS = 15; // 15 epochs fluid
@@ -134,34 +124,6 @@ library Constants {
     function getBootstrappingSpeedupFactor() internal pure returns (uint256) {
         return BOOTSTRAPPING_SPEEDUP_FACTOR;
     }
-
-    /* We should remove the Governance so we can change the codes later */
-
-    /*
-    function getGovernancePeriod() internal pure returns (uint256) {
-        return GOVERNANCE_PERIOD;
-    }
-
-    function getGovernanceExpiration() internal pure returns (uint256) {
-        return GOVERNANCE_EXPIRATION;
-    }
-
-    function getGovernanceQuorum() internal pure returns (Decimal.D256 memory) {
-        return Decimal.D256({value: GOVERNANCE_QUORUM});
-    }
-
-    function getGovernanceProposalThreshold() internal pure returns (Decimal.D256 memory) {
-        return Decimal.D256({value: GOVERNANCE_PROPOSAL_THRESHOLD});
-    }
-
-    function getGovernanceSuperMajority() internal pure returns (Decimal.D256 memory) {
-        return Decimal.D256({value: GOVERNANCE_SUPER_MAJORITY});
-    }
-
-    function getGovernanceEmergencyDelay() internal pure returns (uint256) {
-        return GOVERNANCE_EMERGENCY_DELAY;
-    }
-    */
 
     function getAdvanceIncentive() internal pure returns (uint256) {
         return ADVANCE_INCENTIVE;
