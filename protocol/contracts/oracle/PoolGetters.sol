@@ -21,7 +21,7 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
 import "./PoolState.sol";
 import "../Constants.sol";
 
-contract PoolGetters is PoolState {
+contract PoolGetters is PoolState, Constants {
     using SafeMath for uint256;
 
     /**

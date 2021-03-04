@@ -27,7 +27,7 @@ import "./IOracle.sol";
 import "./IUSDC.sol";
 import "../Constants.sol";
 
-contract Oracle is IOracle {
+contract Oracle is IOracle, Constants {
     using Decimal for Decimal.D256;
 
     bytes32 private constant FILE = "Oracle";

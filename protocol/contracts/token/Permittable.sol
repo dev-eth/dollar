@@ -22,7 +22,7 @@ import "../external/Require.sol";
 import "../external/LibEIP712.sol";
 import "../Constants.sol";
 
-contract Permittable is ERC20Detailed, ERC20 {
+contract Permittable is ERC20Detailed, ERC20, Constants {
     bytes32 constant FILE = "Permittable";
 
     // keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");

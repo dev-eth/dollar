@@ -21,7 +21,7 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
 import "./State.sol";
 import "../Constants.sol";
 
-contract Getters is State {
+contract Getters is State, Constants {
     using SafeMath for uint256;
     using Decimal for Decimal.D256;
 

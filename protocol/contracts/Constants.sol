@@ -20,23 +20,23 @@ pragma experimental ABIEncoderV2;
 import "./external/Decimal.sol";
 import "@openzeppelin/contracts/ownership/Ownable.sol";
 
-library Constants {
+contract Constants {
     /* Chain */
     uint256 private constant CHAIN_ID = 1; // Mainnet
 
     /* Bootstrapping */
-    uint256 private constant BOOTSTRAPPING_PERIOD = 90;
-    uint256 private constant BOOTSTRAPPING_PRICE = 11e17; // 1.10 USDC
-    uint256 private constant BOOTSTRAPPING_SPEEDUP_FACTOR = 3; // 30 days @ 8 hours
+    uint256 public constant BOOTSTRAPPING_PERIOD = 90;
+    uint256 public constant BOOTSTRAPPING_PRICE = 11e17; // 1.10 USDC
+    uint256 public constant BOOTSTRAPPING_SPEEDUP_FACTOR = 3; // 30 days @ 8 hours
 
     /* Oracle */
     address private constant USDC = address(0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48); // USDC token address
     address private constant DEA = address(0x80aB141F324C3d6F2b18b030f1C4E95d4d658778); // DEA token address
 
-    uint256 private constant ORACLE_RESERVE_MINIMUM = 1e10; // 10,000 USDC
+    uint256 public constant ORACLE_RESERVE_MINIMUM = 1e10; // 10,000 USDC
 
     /* Bonding */
-    uint256 private constant INITIAL_STAKE_MULTIPLE = 1e6; // 100 ESD -> 100M ESDS
+    uint256 public constant INITIAL_STAKE_MULTIPLE = 1e6; // 100 ESD -> 100M ESDS
 
     /* Epoch */
     struct EpochStrategy {
@@ -45,36 +45,36 @@ library Constants {
         uint256 period;
     }
 
-    uint256 private constant PREVIOUS_EPOCH_OFFSET = 91;
-    uint256 private constant PREVIOUS_EPOCH_START = 1600905600;
-    uint256 private constant PREVIOUS_EPOCH_PERIOD = 86400;
+    uint256 public constant PREVIOUS_EPOCH_OFFSET = 91;
+    uint256 public constant PREVIOUS_EPOCH_START = 1600905600;
+    uint256 public constant PREVIOUS_EPOCH_PERIOD = 86400;
 
-    uint256 private constant CURRENT_EPOCH_OFFSET = 106;
-    uint256 private constant CURRENT_EPOCH_START = 1602201600;
-    uint256 private constant CURRENT_EPOCH_PERIOD = 28800;
+    uint256 public constant CURRENT_EPOCH_OFFSET = 106;
+    uint256 public constant CURRENT_EPOCH_START = 1602201600;
+    uint256 public constant CURRENT_EPOCH_PERIOD = 28800;
 
     /* DAO */
-    uint256 private constant ADVANCE_INCENTIVE = 1e20; // 100 ESD
-    uint256 private constant DAO_EXIT_LOCKUP_EPOCHS = 15; // 15 epochs fluid
+    uint256 public constant ADVANCE_INCENTIVE = 1e20; // 100 ESD
+    uint256 public constant DAO_EXIT_LOCKUP_EPOCHS = 15; // 15 epochs fluid
 
     /* Pool */
-    uint256 private constant POOL_EXIT_LOCKUP_EPOCHS = 5; // 5 epochs fluid
+    uint256 public constant POOL_EXIT_LOCKUP_EPOCHS = 5; // 5 epochs fluid
 
     /* Market */
-    uint256 private constant COUPON_EXPIRATION = 441;
-    uint256 private constant DEBT_RATIO_CAP = 20e16; // 20%
+    uint256 public constant COUPON_EXPIRATION = 441;
+    uint256 public constant DEBT_RATIO_CAP = 20e16; // 20%
 
     /* Regulator */
-    uint256 private constant SUPPLY_CHANGE_LIMIT = 3e16; // 3%
-    uint256 private constant COUPON_SUPPLY_CHANGE_LIMIT = 6e16; // 6%
-    uint256 private constant ORACLE_POOL_RATIO = 20; // 20%
-    uint256 private constant TREASURY_RATIO = 4000; // 40% Change the treasury ratio from 2.5% to 40%
+    uint256 public constant SUPPLY_CHANGE_LIMIT = 3e16; // 3%
+    uint256 public constant COUPON_SUPPLY_CHANGE_LIMIT = 6e16; // 6%
+    uint256 public constant ORACLE_POOL_RATIO = 20; // 20%
+    uint256 public constant TREASURY_RATIO = 4000; // 40% Change the treasury ratio from 2.5% to 40%
 
     /* Deployed */
     address private constant DAO_ADDRESS = address(0x443D2f2755DB5942601fa062Cc248aAA153313D3);
     address private constant DOLLAR_ADDRESS = address(0x36F3FD68E7325a35EB768F1AedaAe9EA0689d723);
     address private constant PAIR_ADDRESS = address(0x88ff79eB2Bc5850F27315415da8685282C7610F9);
-    address private constant TREASURY_ADDRESS = address(0x460661bd4A5364A3ABCc9cfc4a8cE7038d05Ea22); // This should be the Depot Controller Contract Address
+    address public constant TREASURY_ADDRESS = address(0x460661bd4A5364A3ABCc9cfc4a8cE7038d05Ea22); // This should be the Depot Controller Contract Address
 
     /**
      * Getters
@@ -180,5 +180,4 @@ library Constants {
     function getTreasuryAddress() internal pure returns (address) {
         return TREASURY_ADDRESS;
     }
-    
 }

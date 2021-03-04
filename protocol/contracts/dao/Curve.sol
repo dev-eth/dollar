@@ -21,7 +21,7 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
 import "../external/Decimal.sol";
 import "../Constants.sol";
 
-contract Curve {
+contract Curve is Constants {
     using SafeMath for uint256;
     using Decimal for Decimal.D256;
 
