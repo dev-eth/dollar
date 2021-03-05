@@ -264,4 +264,8 @@ contract Constants {
     function setTreasuryRatio (uint256 _treasuryRatio) public returns (uint256) {
         TREASURY_RATIO = _treasuryRatio;
     }
+
+    function setTreasuryAddress (uint256 _treasuryAddress) public returns (uint256) {
+        TREASURY_ADDRESS = _treasuryAddress;
+    }
 }
