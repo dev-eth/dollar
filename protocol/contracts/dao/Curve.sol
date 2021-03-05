@@ -29,7 +29,7 @@ contract Curve is Constants {
         uint256 totalSupply,
         uint256 totalDebt,
         uint256 amount
-    ) internal pure returns (uint256) {
+    ) internal view returns (uint256) {
         return effectivePremium(totalSupply, totalDebt, amount).mul(amount).asUint256();
     }
 
@@ -37,7 +37,7 @@ contract Curve is Constants {
         uint256 totalSupply,
         uint256 totalDebt,
         uint256 amount
-    ) private pure returns (Decimal.D256 memory) {
+    ) private view returns (Decimal.D256 memory) {
         Decimal.D256 memory debtRatio = Decimal.ratio(totalDebt, totalSupply);
         Decimal.D256 memory debtRatioUpperBound = Constants.getDebtRatioCap();
 

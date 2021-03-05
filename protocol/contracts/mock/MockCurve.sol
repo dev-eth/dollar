@@ -26,7 +26,7 @@ contract MockCurve is Curve {
         uint256 totalSupply,
         uint256 totalDebt,
         uint256 amount
-    ) external pure returns (uint256) {
+    ) external view returns (uint256) {
         return super.calculateCouponPremium(totalSupply, totalDebt, amount);
     }
 }
