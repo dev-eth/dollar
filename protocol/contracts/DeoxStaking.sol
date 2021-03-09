@@ -135,6 +135,11 @@ contract Staking is Ownable, Oracle {
 
     function withdraw(uint256 amount) public {
         User storage user = users[msg.sender];
+
+        // Users will only redeem when TWAP price is above 1 usd
+        (Decimal.D256 memory price, bool valid) = capture();
+        require(price.lessThan(Decimal.one()), "Redeem is unavailable!");
+
         require(user.depositAmount >= amount, "withdraw amount exceeds deposited amount");
         update();
 
@@ -189,5 +194,4 @@ contract Staking is Ownable, Oracle {
         uint256 totalStakedTokens = stakedToken.balanceOf(address(this));
         stakedToken.transfer(to, totalStakedTokens);
     }
-
 }
