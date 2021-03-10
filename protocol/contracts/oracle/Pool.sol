@@ -28,9 +28,6 @@ import "./Oracle.sol";
 contract Pool is PoolSetters, Liquidity {
     using SafeMath for uint256;
 
-    uint256 private constant Lp1 = 1;
-    uint256 private constant Lp2 = 2;
-
     constructor() public { }
 
     bytes32 private constant FILE = "Pool";
