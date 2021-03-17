@@ -31,7 +31,6 @@ contract Constants {
 
     /* Oracle */
     address private constant USDC = address(0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48); // USDC token address
-    address private constant DEA = address(0x80aB141F324C3d6F2b18b030f1C4E95d4d658778); // DEA token address
 
     uint256 public ORACLE_RESERVE_MINIMUM = 1e10; // 10,000 USDC
 
@@ -82,11 +81,6 @@ contract Constants {
 
     function getUsdcAddress() internal view returns (address) {
         return USDC;
-    }
-
-    // Get DEA Address
-    function getDeaAddress() internal view returns (address) {
-        return DEA;
     }
 
     function getOracleReserveMinimum() internal view returns (uint256) {
