@@ -28,7 +28,7 @@ contract Staking is Ownable, Oracle {
 
     mapping (address => User) public users;
 
-    uint256 public totalAmount; // This public variable will be used to calculate the total deposit amount, can be called by another contracts
+    uint256 public totalAmount = 0; // This public variable will be used to calculate the total deposit amount, can be called by another contracts
     uint256 public rewardTillNowPerToken = 0;
     uint256 public lastUpdatedBlock;
     uint256 public rewardPerBlock;
