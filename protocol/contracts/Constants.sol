@@ -35,7 +35,7 @@ contract Constants {
     uint256 public ORACLE_RESERVE_MINIMUM = 1e10; // 10,000 USDC
 
     /* Bonding */
-    uint256 public INITIAL_STAKE_MULTIPLE = 1e6; // 100 ESD -> 100M ESDS
+    uint256 public INITIAL_STAKE_MULTIPLE = 1e6; // 100 DEOX -> 100M DEOXS
 
     /* Epoch */
     struct EpochStrategy {
@@ -53,7 +53,7 @@ contract Constants {
     uint256 public CURRENT_EPOCH_PERIOD = 28800;
 
     /* DAO */
-    uint256 public ADVANCE_INCENTIVE = 1e20; // 100 ESD
+    uint256 public ADVANCE_INCENTIVE = 1e20; // 100 Deox
     uint256 public DAO_EXIT_LOCKUP_EPOCHS = 15; // 15 epochs fluid
 
     /* Pool */

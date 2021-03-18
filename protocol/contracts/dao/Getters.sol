@@ -32,11 +32,11 @@ contract Getters is State, Constants {
      */
 
     function name() public view returns (string memory) {
-        return "Empty Set Dollar Stake";
+        return "DEOX Stake";
     }
 
     function symbol() public view returns (string memory) {
-        return "ESDS";
+        return "DEOXS";
     }
 
     function decimals() public view returns (uint8) {
