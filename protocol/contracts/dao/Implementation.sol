@@ -36,12 +36,12 @@ contract Implementation is State, Bonding, Market, Regulator/*, Govern*/ {
         // Reward committer
         incentivize(msg.sender, Constants.getAdvanceIncentive());
         // Dev rewards
-
     }
 
     function advance() external {
         incentivize(msg.sender, Constants.getAdvanceIncentive());
 
+        // Should add the Depot.step() here
         Bonding.step();
         Regulator.step();
         Market.step();
