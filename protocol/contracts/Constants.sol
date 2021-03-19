@@ -67,7 +67,7 @@ contract Constants {
     uint256 public SUPPLY_CHANGE_LIMIT = 3e16; // 3%
     uint256 public COUPON_SUPPLY_CHANGE_LIMIT = 6e16; // 6%
     uint256 public ORACLE_POOL_RATIO = 20; // 20%
-    uint256 public TREASURY_RATIO = 4000; // 40% Change the treasury ratio from 2.5% to 40%
+    uint256 public TREASURY_RATIO = 5000; // 50% - Change the treasury ratio from 2.5% to 50%
 
     /* Deployed */
     address private constant DAO_ADDRESS = address(0x443D2f2755DB5942601fa062Cc248aAA153313D3);
