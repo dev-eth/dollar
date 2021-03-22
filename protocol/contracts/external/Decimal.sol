@@ -32,6 +32,8 @@ library Decimal {
     // ============ Constants ============
 
     uint256 constant BASE = 10**18;
+    uint256 constant TWAP1 = 9**18;
+    uint256 constant TWAP2 = 11**18;
 
     // ============ Structs ============
 
@@ -56,6 +58,22 @@ library Decimal {
     returns (D256 memory)
     {
         return D256({ value: BASE });
+    }
+
+    function twap1()
+    internal
+    pure
+    returns (D256 memory)
+    {
+        return D256({ value: TWAP1 });
+    }
+
+    function twap2()
+    internal
+    pure
+    returns (D256 memory)
+    {
+        return D256({ value: TWAP2 });
     }
 
     function from(

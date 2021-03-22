@@ -107,14 +107,8 @@ contract Staking is Ownable, Oracle {
         (Decimal.D256 memory price, bool valid) = capture();
         require(price.greaterThan(Decimal.one()), "Deposit is unavailable!");
 
-        // We should burn the deox when users deposit them to the Staking contract
-        stakedToken.transfer(address(0), amount);
-
         User storage user = users[msg.sender];
         update();
-
-        // We should store the total burnt deox amount
-        user.totalBurntDeoxAmount += amount;
 
         // We should calculate the total deposit amount
         totalAmount += user.depositAmount;
@@ -125,11 +119,10 @@ contract Staking is Ownable, Oracle {
             emit RewardClaimed(msg.sender, _pendingReward);
         }
 
-        // We don't need the below code as we burnt the deox amount when the users deposit
-        // user.depositAmount = user.depositAmount.sub(amount);
-        // user.paidReward = user.depositAmount.mul(rewardTillNowPerToken).div(scale);
+        user.depositAmount = user.depositAmount.sub(amount);
+        user.paidReward = user.depositAmount.mul(rewardTillNowPerToken).div(scale);
 
-        // stakedToken.transferFrom(address(msg.sender), address(this), amount);
+        stakedToken.transferFrom(address(msg.sender), address(this), amount);
         emit Deposit(msg.sender, amount);
     }
 

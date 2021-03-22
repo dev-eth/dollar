@@ -19,8 +19,11 @@ pragma experimental ABIEncoderV2;
 
 import "./external/Decimal.sol";
 import "@openzeppelin/contracts/ownership/Ownable.sol";
+import "@openzeppelin/contracts/math/SafeMath.sol";
 
 contract Constants {
+    using SafeMath for uint256;
+
     /* Chain */
     uint256 private CHAIN_ID = 1; // Mainnet
 
@@ -60,13 +63,14 @@ contract Constants {
     uint256 public POOL_EXIT_LOCKUP_EPOCHS = 5; // 5 epochs fluid
 
     /* Market */
-    uint256 public COUPON_EXPIRATION = 441;
+    uint256 public COUPON_EXPIRATION = 90;
     uint256 public DEBT_RATIO_CAP = 20e16; // 20%
 
     /* Regulator */
     uint256 public SUPPLY_CHANGE_LIMIT = 3e16; // 3%
     uint256 public COUPON_SUPPLY_CHANGE_LIMIT = 6e16; // 6%
-    uint256 public ORACLE_POOL_RATIO = 12.5; // 12.5% - Change Pool Ratio from 20% to 12.5%
+    uint256 public POOL_RATIO = 25;
+    uint256 public ORACLE_POOL_RATIO = POOL_RATIO.div(2); // 12.5% - Change Pool Ratio from 20% to 12.5%
     uint256 public TREASURY_RATIO = 6250; // 62.5% - Change the treasury ratio from 2.5% to 62.5%
 
     /* Deployed */
