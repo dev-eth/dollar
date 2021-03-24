@@ -4,8 +4,8 @@ fully decentralized self-stabilizing dollar.
 ## stablecoin
 
 - shorthand name: `døllar`
-- full name: `Empty Set Dollar`
-- symbol: `ESD`
+- full name: `DEOX`
+- symbol: `DEOX`
 - decimals: `18`
 - character: `∅ [U+2205], ∅100`
 - icons:
