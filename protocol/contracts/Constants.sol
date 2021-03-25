@@ -69,8 +69,7 @@ contract Constants {
     /* Regulator */
     uint256 public SUPPLY_CHANGE_LIMIT = 3e16; // 3%
     uint256 public COUPON_SUPPLY_CHANGE_LIMIT = 6e16; // 6%
-    uint256 public POOL_RATIO = 25;
-    uint256 public ORACLE_POOL_RATIO = POOL_RATIO.div(2); // 12.5% - Change Pool Ratio from 20% to 12.5%
+    uint256 public ORACLE_POOL_RATIO = 25; // 12.5% - Change Pool Ratio from 20% to 12.5%
     uint256 public TREASURY_RATIO = 6250; // 62.5% - Change the treasury ratio from 2.5% to 62.5%
 
     /* Deployed */
