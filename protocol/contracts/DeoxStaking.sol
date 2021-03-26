@@ -25,9 +25,9 @@ contract Staking is Constants, Ownable, Oracle, ReentrancyGuard {
         uint256 depositAmount;
         uint256 paidReward;
 
-        uint256 deoxReward;
-        uint256 deaReward;
-        uint256 usdcReward;
+        uint256 rewardUsdc;
+        uint256 rewardDea;
+        uint256 rewardDeox;
     }
 
     using SafeMath for uint256;
@@ -47,10 +47,6 @@ contract Staking is Constants, Ownable, Oracle, ReentrancyGuard {
     uint256 public lastUpdateTime;
     uint256 public rewardRate = 0;
     uint256 public rewardPerTokenStored;
-
-    uint256 public rewardUsdc;
-    uint256 public rewardDea;
-    uint256 public rewardDeox;
 
     uint256 private _totalSupply;
 
@@ -103,11 +99,13 @@ contract Staking is Constants, Ownable, Oracle, ReentrancyGuard {
     }
 
     function notifyRewardAmount(uint256 _rewardUsdc, uint256 _rewardDea, uint256 _rewardDeox) public updateReward(address(0)) {
+        User storage user = users[msg.sender];
+
         uint256 reward = 10 ** 18;
 
-        rewardUsdc = _rewardUsdc;
-        rewardDea = _rewardDea;
-        rewardDeox = _rewardDeox;
+        user.rewardUsdc = _rewardUsdc;
+        user.rewardDea = _rewardDea;
+        user.rewardDeox = _rewardDeox;
 
         if (block.timestamp >= periodFinish) {
             rewardRate = reward.div(CURRENT_EPOCH_PERIOD);
@@ -208,9 +206,9 @@ contract Staking is Constants, Ownable, Oracle, ReentrancyGuard {
 
         uint256 _pendingReward = user.depositAmount.mul(rewardTillNowPerToken).div(scale).sub(user.paidReward);
 
-        rewardToken.transfer(msg.sender, _pendingReward * 10 ** 18 / rewardUsdc);
-        rewardToken.transfer(msg.sender, _pendingReward * 10 ** 18 / rewardDea);
-        rewardToken.transfer(msg.sender, _pendingReward * 10 ** 18 / rewardDeox);
+        rewardToken.transfer(msg.sender, _pendingReward * 10 ** 18 / user.rewardUsdc);
+        rewardToken.transfer(msg.sender, _pendingReward * 10 ** 18 / user.rewardDea);
+        rewardToken.transfer(msg.sender, _pendingReward * 10 ** 18 / user.rewardDeox);
         
         emit RewardClaimed(msg.sender, _pendingReward);
 
