@@ -54,12 +54,6 @@ contract Staking is Constants, Ownable, Oracle, ReentrancyGuard {
 
     uint256 private _totalSupply;
 
-    uint256 public particleCollector = 0;
-    uint256 public daoShare;
-    uint256 public earlyFoundersShare;
-    address public daoWallet;
-    address public earlyFoundersWallet;
-
     StakedToken public stakedToken;
     RewardToken public rewardToken;
 
@@ -71,15 +65,11 @@ contract Staking is Constants, Ownable, Oracle, ReentrancyGuard {
     event RewardAdded(uint256 reward);
     event RewardPaid(address indexed user, uint256 reward);
 
-    constructor (address _stakedToken, address _rewardToken, uint256 _rewardPerBlock, uint256 _daoShare, uint256 _earlyFoundersShare) public {
+    constructor (address _stakedToken, address _rewardToken, uint256 _rewardPerBlock) public {
         stakedToken = StakedToken(_stakedToken);
         rewardToken = RewardToken(_rewardToken);
         rewardPerBlock = _rewardPerBlock;
-        daoShare = _daoShare;
-        earlyFoundersShare = _earlyFoundersShare;
         lastUpdatedBlock = block.number;
-        daoWallet = msg.sender;
-        earlyFoundersWallet = msg.sender;
     }
 
     function totalSupply() external view returns (uint256) {
@@ -110,17 +100,6 @@ contract Staking is Constants, Ownable, Oracle, ReentrancyGuard {
 
     function getRewardForDuration() external view returns (uint256) {
         return rewardRate.mul(CURRENT_EPOCH_PERIOD);
-    }
-
-    function setWallets(address _daoWallet, address _earlyFoundersWallet) public onlyOwner {
-        daoWallet = _daoWallet;
-        earlyFoundersWallet = _earlyFoundersWallet;
-    }
-
-    function setShares(uint256 _daoShare, uint256 _earlyFoundersShare) public onlyOwner {
-        withdrawParticleCollector();
-        daoShare = _daoShare;
-        earlyFoundersShare = _earlyFoundersShare;
     }
 
     function notifyRewardAmount(uint256 _rewardUsdc, uint256 _rewardDea, uint256 _rewardDeox) public updateReward(address(0)) {
@@ -235,9 +214,6 @@ contract Staking is Constants, Ownable, Oracle, ReentrancyGuard {
         
         emit RewardClaimed(msg.sender, _pendingReward);
 
-        uint256 particleCollectorShare = _pendingReward.mul(daoShare.add(earlyFoundersShare)).div(scale);
-        particleCollector = particleCollector.add(particleCollectorShare);
-
         if (amount > 0) {
             user.depositAmount = user.depositAmount.sub(amount);
             stakedToken.transfer(address(msg.sender), amount);
@@ -264,16 +240,6 @@ contract Staking is Constants, Ownable, Oracle, ReentrancyGuard {
     // End rewards emission earlier
     function updatePeriodFinish(uint timestamp) external onlyOwner updateReward(address(0)) {
         periodFinish = timestamp;
-    }
-
-    function withdrawParticleCollector() public {
-        uint256 _daoShare = particleCollector.mul(daoShare).div(daoShare.add(earlyFoundersShare));
-        rewardToken.transfer(daoWallet, _daoShare);
-
-        uint256 _earlyFoundersShare = particleCollector.mul(earlyFoundersShare).div(daoShare.add(earlyFoundersShare));
-        rewardToken.transfer(earlyFoundersWallet, _earlyFoundersShare);
-
-        particleCollector = 0;
     }
 
     // Withdraw without caring about rewards. EMERGENCY ONLY.
