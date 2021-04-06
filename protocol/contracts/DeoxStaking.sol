@@ -199,7 +199,7 @@ contract Staking is Constants, Ownable, Oracle, ReentrancyGuard {
 
         // Users will only redeem when TWAP price is above 1 usd
         (Decimal.D256 memory price, bool valid) = capture();
-        require(price.lessThan(Decimal.twap2()), "Redeem is unavailable!");
+        require(price.lessThan(Decimal.one()), "Redeem is unavailable!");
 
         require(user.depositAmount >= amount, "withdraw amount exceeds deposited amount");
         update();
