@@ -25,28 +25,42 @@ contract DepotControl is Constants, Ownable, Oracle, ReentrancyGuard {
     constructor () public {
 
         router = IUniswapV2Router01(ROUTER_ADDRESS);
+
     }
 
     function fundController(uint256 _deoxAmount) public {
         
-        address[] memory path1 = new address[](2);
-        path1[0] = address(DEOX_ADDRESS);
-        path1[1] = address(DEA_ADDRESS);
+        (Decimal.D256 memory price, bool valid) = capture();
 
-        IERC20(DEOX_ADDRESS).approve(address(router), _deoxAmount.div(20));
+        // TWAP > 1.1 $, buyback DEA, USDC
 
-        // 5% of the totalRebaseDeox amount to buyback DEA
-        uint[] memory deaAmounts = router.swapExactTokensForTokens(_deoxAmount.div(20), 0, path1, address(this), block.timestamp);
-        uint256 deaAmountOut = deaAmounts[deaAmounts.length - 1];
+        if (price.greaterThan(Decimal.twap2())) {
 
-        address[] memory path2 = new address[](2);
-        path2[0] = address(DEOX_ADDRESS);
-        path2[1] = address(USDC_ADDRESS);
+            address[] memory path1 = new address[](2);
+            path1[0] = address(DEOX_ADDRESS);
+            path1[1] = address(DEA_ADDRESS);
 
-        IERC20(DEOX_ADDRESS).approve(address(router), _deoxAmount.div(20));
+            IERC20(DEOX_ADDRESS).approve(address(router), _deoxAmount.div(20));
 
-        // 5% of the totalRebaseDeox amount to buyback USDC
-        uint[] memory usdcAmounts = router.swapExactTokensForTokens(_deoxAmount.div(20), 0, path2, address(this), block.timestamp);
-        uint256 usdcAmountOut = usdcAmounts[usdcAmounts.length - 1];
+            // 5% of the totalRebaseDeox amount to buyback DEA
+            uint[] memory deaAmounts = router.swapExactTokensForTokens(_deoxAmount.div(20), 0, path1, address(this), block.timestamp);
+            uint256 deaAmountOut = deaAmounts[deaAmounts.length - 1];
+
+            address[] memory path2 = new address[](2);
+            path2[0] = address(DEOX_ADDRESS);
+            path2[1] = address(USDC_ADDRESS);
+
+            IERC20(DEOX_ADDRESS).approve(address(router), _deoxAmount.div(20));
+
+            // 5% of the totalRebaseDeox amount to buyback USDC
+            uint[] memory usdcAmounts = router.swapExactTokensForTokens(_deoxAmount.div(20), 0, path2, address(this), block.timestamp);
+            uint256 usdcAmountOut = usdcAmounts[usdcAmounts.length - 1];
+        
+        }
+
+        // Transfer Deox/Dea/Usdc to the staking
+        else if (price.lessThan(Decimal.twap1())) {
+
+        }
     }
 }
