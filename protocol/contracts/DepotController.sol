@@ -17,7 +17,7 @@ contract DepotControl is Constants, Ownable, Oracle, ReentrancyGuard {
     IUniswapV2Router01 public router;
     
     // Uniswap Router Address
-    address constant ROUTER_ADDRESS = 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D;
+    address constant ROUTER_ADDRESS = 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D; // This is just the router address
     address constant DEOX_ADDRESS = 0x000000000000000000000000000000000000dEaD; // This is just the test deox token address
     address constant DEA_ADDRESS = 0x02b7a1AF1e9c7364Dd92CdC3b09340Aea6403934; // This is just the test DEA token address
     address constant USDC_ADDRESS = 0x7d66CDe53cc0A169cAE32712fC48934e610aeF14; // This is just the test USDC token address
@@ -32,7 +32,7 @@ contract DepotControl is Constants, Ownable, Oracle, ReentrancyGuard {
         
         (Decimal.D256 memory price, bool valid) = capture();
 
-        // TWAP > 1.1 $, buyback DEA, USDC
+        // TWAP > 1.1 $, buyback DEA, USDC each 5%
 
         if (price.greaterThan(Decimal.twap2())) {
 
